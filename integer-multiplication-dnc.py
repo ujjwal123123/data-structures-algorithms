@@ -1,27 +1,27 @@
 import time
 
 
-def split_at(num, low_len):
+def split_at(num: int, low_len: int):
     """
     Return (high, low)
     """
-    num = str(num)
+    snum = str(num)
 
     # so that we do not find substring of an empty string
-    if num_len(num) <= low_len:
+    if num_len(snum) <= low_len:
         high = 0
     else:
-        high = int(num[:-low_len])
+        high = int(snum[:-low_len])
 
-    low = int(num[-low_len:])
+    low = int(snum[-low_len:])
     return high, low
 
 
-def num_len(num):
+def num_len(num: int):
     return len(str(num))
 
 
-def multiply(numA, numB):
+def multiply(numA: int, numB: int):
     """
     Calculate numA*numB using simple divide and conquer
     """
@@ -41,7 +41,7 @@ def multiply(numA, numB):
     return high * 10 ** (2 * half_length) + mid * 10 ** half_length + low
 
 
-def karatsuba(numA, numB):
+def karatsuba(numA: int, numB: int):
     """
     Calculate numA * numB using Karatsuba algorithm
     """
@@ -73,3 +73,4 @@ if __name__ == "__main__":
     print(karatsuba_product)
     print("Karatsuba timing:", t2-t1)
     print("dnc timing:", t1-t0)
+
