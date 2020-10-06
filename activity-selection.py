@@ -21,10 +21,10 @@ def activity_selection(activities):
 
 
 def get_activities():
-    activities_count = int(input())
+    activities_count = int(input("Enter number of activities: "))
     activities = []
     for _ in range(activities_count):
-        start, end = map(int, input().split())
+        start, end = map(int, input("Activity: ").split())
         activities.append(activity(start, end))
 
     return activities

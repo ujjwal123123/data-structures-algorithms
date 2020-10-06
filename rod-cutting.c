@@ -12,7 +12,8 @@ int max_price(int *prices, int length) {
 
     int var_max_price = INT_MIN;
     for (int i = 0; i < length; i++) {
-        int var_max_price_split = prices[i] + max_price(prices, length - i - 1);
+        int var_max_price_split =
+            prices[i] + max_price(prices, length - i - 1);
         if (var_max_price_split > var_max_price) {
             var_max_price = var_max_price_split;
         }
