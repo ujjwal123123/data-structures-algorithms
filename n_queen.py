@@ -4,6 +4,7 @@ BOARD_SIZE = 8
 EMPTY = "_"
 VISITED = "*"
 
+
 def print_board(board):
     print()
     for row in board:
@@ -13,9 +14,9 @@ def print_board(board):
 
 
 def check_valid_move(board: list, point: tuple):
-    '''
+    """
     Check if the move is legal
-    '''
+    """
     j, i = point
     row_no = len(board) - 1
 
@@ -77,13 +78,14 @@ def n_queen_recursive(board: list, row_no: int = 0):
 
     row = board[row_no]
     for i in range(len(row)):
-        if check_valid_move(board[:row_no+1], (j, i)):
+        if check_valid_move(board[: row_no + 1], (j, i)):
             board[j][i] = VISITED
             n_queen_recursive(board, row_no + 1)
 
             # reset row
             board[j][i] = EMPTY
 
+
 if __name__ == "__main__":
-    board = [[EMPTY]*BOARD_SIZE for i in range(BOARD_SIZE)]
+    board = [[EMPTY] * BOARD_SIZE for i in range(BOARD_SIZE)]
     n_queen_recursive(board)

@@ -26,9 +26,9 @@ def multiply(numA: int, numB: int):
     Calculate numA*numB using simple divide and conquer
     """
     length = max(num_len(numA), num_len(numB))
-    half_length = length//2
+    half_length = length // 2
 
-    if (num_len(numA) == 1 or num_len(numB) == 1):
+    if num_len(numA) == 1 or num_len(numB) == 1:
         return numA * numB
 
     highA, lowA = split_at(numA, half_length)
@@ -46,9 +46,9 @@ def karatsuba(numA: int, numB: int):
     Calculate numA * numB using Karatsuba algorithm
     """
     length = max(num_len(numA), num_len(numB))
-    half_length = length//2
+    half_length = length // 2
 
-    if (num_len(numA) == 1 or num_len(numB) == 1):
+    if num_len(numA) == 1 or num_len(numB) == 1:
         return numA * numB
 
     highA, lowA = split_at(numA, half_length)
@@ -68,9 +68,8 @@ if __name__ == "__main__":
     t1 = time.time()
     karatsuba_product = multiply(a, b)
     t2 = time.time()
-    assert(dnc_product == karatsuba_product)
-    assert(dnc_product == a*b)
+    assert dnc_product == karatsuba_product
+    assert dnc_product == a * b
     print(karatsuba_product)
-    print("Karatsuba timing:", t2-t1)
-    print("dnc timing:", t1-t0)
-
+    print("Karatsuba timing:", t2 - t1)
+    print("dnc timing:", t1 - t0)

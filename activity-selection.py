@@ -10,7 +10,7 @@ class activity:
 
 
 def activity_selection(activities):
-    activities = sorted(activities,  key=lambda activity: activity.end)
+    activities = sorted(activities, key=lambda activity: activity.end)
 
     solutions = [activities[0]]
     for activity in activities[1:]:
