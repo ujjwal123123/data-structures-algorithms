@@ -24,7 +24,6 @@ def find_subset(array, required_sum, selected=[]):
 
 
 if __name__ == "__main__":
-    # array = [1, 2, 3, 4, 5]
     array = list(map(int, input("Enter array: ").split()))
     required_sum = int(input("Enter required sum: "))
 

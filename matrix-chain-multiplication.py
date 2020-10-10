@@ -89,8 +89,7 @@ def get_matrices(matrix_count):
 # ---------------------
 # | a |   |   |   | 0 |  5
 # ---------------------
-# Mulitplying from matrices[i] to matrices[j] (inclusive)
-# or multiplying matrices from matrices[point.x] to matrices[point.y] (inclusive)
+# Mulitplying from matrices[start] to matrices[end] (inclusive)
 
 
 def minimize_cost(start: int, end: int):

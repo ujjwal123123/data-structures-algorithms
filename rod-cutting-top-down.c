@@ -15,7 +15,8 @@ int get_memo_item(int *prices, int index, int *memo) {
         for (int i = 0; i <= index; i++) {
             memo[index] =
                 max(memo[index],
-                    prices[i] + get_memo_item(prices, index - 1 - i, memo));
+                    prices[i] +
+                        get_memo_item(prices, index - 1 - i, memo));
         }
     }
     return memo[index];
