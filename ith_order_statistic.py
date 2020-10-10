@@ -11,16 +11,13 @@ def randomized_select(array, index):
     pivot_index = randomized_partition(array)
 
     if pivot_index == index:
-        # the pivot value is the answer
         return array[pivot_index]
     elif index < pivot_index:
         new_array = array[:pivot_index]
-        assert len(new_array) == pivot_index
         return randomized_select(new_array, index)
     else:
         new_index = index - pivot_index - 1
         new_array = array[pivot_index + 1 :]
-        assert len(new_array) == len(array) - 1 - pivot_index
         return randomized_select(new_array, new_index)
 
 
@@ -29,39 +26,29 @@ def randomized_partition(array):
     Randomly partition `array` after randomly selecting pivot element and returns
     index of pivot
     """
-    # i = random.randint(0, len(array) - 1)
-    i = 0
-    if len(array) > 2:
-        i = 2
-    array[0], array[i] = array[i], array[0]
-    # print("Pivot:", array[0])
+    i = random.randint(0, len(array) - 1)
+    array[i], array[-1] = array[-1], array[i]
     return partition(array)
 
 
 def partition(array):
     """
-    Partition using the first element as a pivot (inplace) and return the new
+    Partition using the last element as a pivot (inplace) and return the new
     index of pivot (i.e. location of the pivot)
     """
-    pivot_index = 0
-    pivot = array[pivot_index]
-    # array[index] is same as pivot
-
-    while pivot_index + 1 < len(array) and array[pivot_index + 1] < pivot:
-        array[pivot_index + 1], array[pivot_index] = (
-            array[pivot_index],
-            array[pivot_index + 1],
-        )
-        pivot_index += 1
-        assert array[pivot_index] == pivot
-    return pivot_index
+    # TODO: Understand this function
+    pivot = array[-1]
+    i = 0
+    for j in range(0, len(array)):
+        if array[j] < pivot:
+            array[i], array[j] = array[j], array[i]
+            i += 1
+    array[i], array[-1] = array[-1], array[i]
+    return i
 
 
 if __name__ == "__main__":
-    # while True:
-    #     array = list(map(int, input("Array: ").split()))
-    #     index = int(input("Index you wish to find: "))
-    #     print(randomized_select(array, index))
-
-    array = [5, 4, 3, 2, 1, 0]
-    assert randomized_select(array, 5) == 5
+    while True:
+        array = list(map(int, input("Array: ").split()))
+        index = int(input("Index you wish to find: "))
+        print(randomized_select(array, index))
