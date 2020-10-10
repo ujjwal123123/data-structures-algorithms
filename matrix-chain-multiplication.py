@@ -29,6 +29,46 @@ class Point:
         return f"x: {self.x}, y: {self.y}"
 
 
+def to_row_column(start, end):
+    # column : start
+    # row : end
+    if end < start:
+        raise ValueError
+    row, column = end, start
+    assert column <= row
+    return end, start
+
+
+class Memo:
+    """Just a 2d memo"""
+
+    def __init__(self, size):
+        self.matrix = [[0] * matrix_count for _ in range(matrix_count)]
+        for i, row in enumerate(self.matrix):
+            row[i] = 0
+
+    def __repr__(self):
+        return str(np.matrix(self.matrix))
+
+    def __len__(self):
+        return len(self.matrix)
+
+    def get(self, start, end):
+        if end < start or end >= len(self):
+            raise ValueError
+        row, column = to_row_column(start, end)
+        return self.matrix[row][column]
+
+    def set(self, start, end, value):
+        if end < start or end >= len(self):
+            raise ValueError
+        row, column = to_row_column(start, end)
+        self.matrix[row][column] = value
+
+    def result(self):
+        return self.get(0, len(self) - 1)
+
+
 def get_matrices(matrix_count):
     matrices = []
     for _ in range(matrix_count):
@@ -53,46 +93,34 @@ def get_matrices(matrix_count):
 # or multiplying matrices from matrices[point.x] to matrices[point.y] (inclusive)
 
 
-def minimize_cost(memo: list, start: int, end: int):
+def minimize_cost(start: int, end: int):
     min_cost = float("inf")
-    print("start:", start, "end:", end, end=" ")
     for mid in range(start, end):
         # do not include start and end
         temp_cost = (
-            memo[start][mid]
-            + memo[mid + 1][end]
+            memo.get(start, mid)
+            + memo.get(mid + 1, end)
             + matrices[start].rows * matrices[mid].columns * matrices[end].columns
         )
         min_cost = min(temp_cost, min_cost)
-    print(min_cost, matrices[start], matrices[end])
     return min_cost
 
 
 def solve(memo):
-    for diagonal_index in range(1, len(memo)):
-        # we need to fill len(m) - 1 diagonals
-        # no need to 0th diagonal (which shall remain 0)
-        point = Point(y=diagonal_index, x=0)
-        for _ in range(len(memo) - diagonal_index):
-            print(point, end="  ")
-            assert point.x < len(memo) and point.y < len(memo)
-            assert point.x < point.y
-            memo[point.x][point.y] = minimize_cost(memo, point.x, point.y)
-            point += Point(y=1, x=1)
-            # print(np.matrix(memo))
-        print()
+    for diff in range(1, len(memo)):
+        start, end = 0, diff
+        while end < len(memo):
+            memo.set(start, end, minimize_cost(start, end))
+            start, end = start + 1, end + 1
 
-    return memo[0][-1]
+    return memo.result()
 
 
 if __name__ == "__main__":
     matrix_count = int(input())
-    matrices = get_matrices(matrix_count)
-    print(matrices)
+    matrices = get_matrices(matrix_count)  # dimensions of matrices
 
     # initialize the memo
-    memo = [[float("inf")] * matrix_count for _ in range(matrix_count)]
-    for i, row in enumerate(memo):
-        row[i] = 0
+    memo = Memo(matrix_count)
 
     print(solve(memo))
