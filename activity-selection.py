@@ -12,19 +12,21 @@ class activity:
 def activity_selection(activities):
     activities = sorted(activities, key=lambda activity: activity.end)
 
-    solutions = [activities[0]]
-    for activity in activities[1:]:
-        if solutions[-1].end <= activity.start:
+    solutions = []
+    last_end = 0
+    for activity in activities:
+        if last_end <= activity.start:
             solutions.append(activity)
+            last_end = activity.end
 
     return solutions
 
 
 def get_activities():
-    activities_count = int(input("Enter number of activities: "))
+    activities_count = int(input())
     activities = []
     for _ in range(activities_count):
-        start, end = map(int, input("Activity: ").split())
+        start, end = map(int, input().split())
         activities.append(activity(start, end))
 
     return activities
