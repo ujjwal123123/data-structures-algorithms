@@ -1,12 +1,12 @@
 def find_subset(array, required_sum, selected=[]):
     """
-    Return list of subsets which product sum of required_sum
+    Return list of subsets whose sum is equal to required_sum
     """
     # base case
+    if required_sum == 0:
+        return [selected]
     if required_sum < 0 or not array:
         return False
-    elif required_sum == 0:
-        return [selected]
 
     result = []
 
